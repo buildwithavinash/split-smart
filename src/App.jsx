@@ -3,7 +3,13 @@ import GroupCard from "./components/GroupCard"
 
 const App = () => {
 
-  const [groups, setGroups] = useState([]);
+  const [groups, setGroups] = useState(()=>{
+    const saved = localStorage.getItem("groups");
+
+    let res = saved ? JSON.parse(saved) : [];
+
+    return res;
+  });
   const [groupName, setGroupName] = useState("");
   const [memberInput, setMemberInput] = useState("");
   const [members, setMembers] = useState([]);
