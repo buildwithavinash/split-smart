@@ -35,6 +35,7 @@ const App = () => {
       id: crypto.randomUUID(),
       name: groupName.trim(),
       members: members,
+      expenses: []
     }
 
     setGroups((prev) => [...prev, newGroup])
@@ -78,6 +79,24 @@ const App = () => {
 
   const selectedGroup = groups.find((g)=>g.id === selectedGroupID)
 
+  // handle add expense
+
+  const handleAddExpense = (groupId, expense) => {
+    const updatedGroups = groups.map((group)=> {
+      if(group.id === groupId){
+        return {
+          ...group, expenses: [...(group.expenses || []), expense]
+          
+        }
+      }
+
+      return group
+    })
+
+    
+
+    setGroups(updatedGroups)
+  }
 
   if(groups.length === 0){
     return (
@@ -119,7 +138,7 @@ const App = () => {
 
     {/* single open group */}
     {selectedGroup ? (
-      <GroupDetail group={selectedGroup} />
+      <GroupDetail group={selectedGroup} onAddExpense={handleAddExpense} />
     ) : (
       <div className="cards__container grid grid-cols-1 gap-4 mt-4">
       {groups.map((group)=>(
