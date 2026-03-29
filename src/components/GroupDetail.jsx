@@ -35,7 +35,28 @@ const GroupDetail = ( {group, onAddExpense, onDeleteExpense, onBackClick} ) => {
 const settlements = calculateSettlements(group) || [];
 console.log(settlements);
 
+// generate message
 
+const generateMessage = () => {
+    if(settlements.length === 0) return "No settlements needed";
+
+    let text = `SplitSmart Summary - ${group.name}\n`;
+
+    settlements.forEach((s)=>{
+        text += `${s.from} owes ${s.to} ₹${s.amount}\n`
+    });
+
+    return text;
+}
+
+// handle whatsapp share
+
+const handleShare = () => {
+    const message = generateMessage();
+    const encoded = encodeURIComponent(message);
+
+    window.open(`https://wa.me/?text=${encoded}`);
+};
 
 
   return (
@@ -113,6 +134,8 @@ console.log(settlements);
                             </p>
                         </div>
                     ))}
+
+                    <button onClick={handleShare}>Share on Whatsapp</button>
                 </div>
             ) : (
                 <p>
