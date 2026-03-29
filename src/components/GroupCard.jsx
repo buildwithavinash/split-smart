@@ -1,7 +1,9 @@
 
-const GroupCard = ( {group, members, setMembers} ) => {
+const GroupCard = ( {group, onMemberRemove, onRemoveGroup} ) => {
+  
   return (
-    <div className='border border-indigo-500 border-l-4 p-2 '>
+    <div className='border border-indigo-500 border-l-4 p-2 relative'>
+      <button className="px-2 py-0.5 bg-red-500 absolute top-2 right-2" onClick={()=>onRemoveGroup(group.id)}>X</button>
           <h2 className='text-2xl font-semibold'>{group.name}</h2>
           <p>{group.members.length} members</p>
 
@@ -9,13 +11,9 @@ const GroupCard = ( {group, members, setMembers} ) => {
           <div className="flex gap-2 flex-wrap">
 
           {group.members.map((member, index)=>(
-            <div key={index} className="px-3 py-1 bg-indigo-600 rounded-full flex items-center justify-center gap-2">
+            <div key={member} className="px-3 py-1 bg-indigo-600 rounded-full flex items-center justify-center gap-2">
               <span className="flex justify-center items-center">{member}</span>
-              <button onClick={()=>{
-                const updated = members.filter((_, i) => i !== index);
-                setMembers(updated)
-                console.log("click");
-              }} className="px-4">
+              <button onClick={()=>onMemberRemove(group.id, index)} className="px-4">
                 X
               </button>
             </div>

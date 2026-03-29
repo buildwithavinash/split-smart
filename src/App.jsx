@@ -20,8 +20,18 @@ const App = () => {
   useEffect(()=>{
     localStorage.setItem("groups", JSON.stringify(groups))
   }, [groups])
+
+
   // create group
+
+  
   const createGroup = () => {
+
+    if(groupName.trim() === "" || members.length < 2) {
+    alert("Please enter a group name and at least 2 members")
+    return
+  }
+
     const newGroup = {
       id: crypto.randomUUID(),
       name: groupName.trim(),
@@ -31,17 +41,47 @@ const App = () => {
     setGroups((prev) => [...prev, newGroup])
     setGroupName("")
     setMemberInput("")
+    setMembers([])
   }
 
   // add members
 
   const addMembers = () => {
+    if(members.includes(memberInput.trim())) return;
+
     if(memberInput.trim() === "") return
     setMembers((prev)=> [...prev, memberInput])
     setMemberInput("")
   }
 
+  // handle member remove
 
+  const handleRemoveMember = (groupId, memberIndex) => {
+      const updatedGroup = groups.map((group)=>{
+        if(group.id === groupId){
+          return {
+            ...group, members: group.members.filter((_, i) => i !== memberIndex)
+          };
+        }
+
+        return group;
+      })
+
+      setGroups(updatedGroup)
+  }
+
+  // remove/delete group
+
+  const onRemoveGroup = (groupId) => {
+    const updatedGroup = groups.filter((group)=>{
+      return group.id !== groupId
+    })
+
+    setGroups(updatedGroup)
+  }
+
+
+  // main return
   return (
     <div className="min-h-screen bg-gray-900 w-full text-white p-4">
 
@@ -78,8 +118,8 @@ const App = () => {
       <div className="cards__container grid grid-cols-1 gap-4 mt-4">
       {groups.map((group)=>(
 
-        // group card component
-        <GroupCard key={group.id} group={group} members={members} setMembers={setMembers}/>
+        // Group Card Component
+        <GroupCard key={group.id} group={group} onMemberRemove={handleRemoveMember} onRemoveGroup={onRemoveGroup}/>
       ))}  
     </div>
     )}
