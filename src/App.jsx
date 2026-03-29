@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import GroupCard from "./components/GroupCard"
+import GroupDetail from "./components/GroupDetail";
 
 const App = () => {
 
@@ -13,18 +14,16 @@ const App = () => {
   const [groupName, setGroupName] = useState("");
   const [memberInput, setMemberInput] = useState("");
   const [members, setMembers] = useState([]);
+  const [selectedGroupID, setSelectedGroupID] = useState(null);
 
 
   // local storage
-
   useEffect(()=>{
     localStorage.setItem("groups", JSON.stringify(groups))
   }, [groups])
 
 
   // create group
-
-  
   const createGroup = () => {
 
     if(groupName.trim() === "" || members.length < 2) {
@@ -45,7 +44,6 @@ const App = () => {
   }
 
   // add members
-
   const addMembers = () => {
     if(members.includes(memberInput.trim())) return;
 
@@ -55,7 +53,6 @@ const App = () => {
   }
 
   // handle member remove
-
   const handleRemoveMember = (groupId, memberIndex) => {
       const updatedGroup = groups.map((group)=>{
         if(group.id === groupId){
@@ -71,7 +68,6 @@ const App = () => {
   }
 
   // remove/delete group
-
   const onRemoveGroup = (groupId) => {
     const updatedGroup = groups.filter((group)=>{
       return group.id !== groupId
@@ -80,6 +76,16 @@ const App = () => {
     setGroups(updatedGroup)
   }
 
+  const selectedGroup = groups.find((g)=>g.id === selectedGroupID)
+
+
+  if(groups.length === 0){
+    return (
+      <div>
+        <p className="mt-6 text-gray-400">No groups yet. Create your first group!</p>
+      </div>
+    )
+  }
 
   // main return
   return (
@@ -110,16 +116,16 @@ const App = () => {
     </div>
 
 {/* groups rendering */}
-    {groups.length === 0 ? (
-      <div>
-        <p className="mt-6 text-gray-400">No groups yet. Create your first group!</p>
-      </div>
+
+    {/* single open group */}
+    {selectedGroup ? (
+      <GroupDetail group={selectedGroup} />
     ) : (
       <div className="cards__container grid grid-cols-1 gap-4 mt-4">
       {groups.map((group)=>(
 
         // Group Card Component
-        <GroupCard key={group.id} group={group} onMemberRemove={handleRemoveMember} onRemoveGroup={onRemoveGroup}/>
+        <GroupCard key={group.id} group={group} onMemberRemove={handleRemoveMember} onRemoveGroup={onRemoveGroup} onOpenGroup={setSelectedGroupID}/>
       ))}  
     </div>
     )}
