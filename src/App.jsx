@@ -98,13 +98,24 @@ const App = () => {
     setGroups(updatedGroups)
   }
 
-  if(groups.length === 0){
-    return (
-      <div>
-        <p className="mt-6 text-gray-400">No groups yet. Create your first group!</p>
-      </div>
-    )
+
+  // delete expense 
+  const handleDeleteExpense = (groupId, expId) => {
+    const updatedGroups = groups.map((group) => {
+      if(group.id === groupId){
+        return {
+          ...group, expenses: group.expenses.filter((exp)=>exp.id !== expId),
+        }
+      }
+
+      return group;
+    })
+
+setGroups(updatedGroups);
+
   }
+
+
 
   // main return
   return (
@@ -138,15 +149,24 @@ const App = () => {
 
     {/* single open group */}
     {selectedGroup ? (
-      <GroupDetail group={selectedGroup} onAddExpense={handleAddExpense} />
+      <GroupDetail group={selectedGroup} onAddExpense={handleAddExpense} onDeleteExpense={handleDeleteExpense} onBackClick={setSelectedGroupID}/>
     ) : (
-      <div className="cards__container grid grid-cols-1 gap-4 mt-4">
+      <>
+      {groups.length === 0 ? (
+        <div>
+        <p className="mt-6 text-gray-400">No groups yet. Create your first group!</p>
+      </div>
+      ) : (
+        <div className="cards__container grid grid-cols-1 gap-4 mt-4">
       {groups.map((group)=>(
-
+        
         // Group Card Component
         <GroupCard key={group.id} group={group} onMemberRemove={handleRemoveMember} onRemoveGroup={onRemoveGroup} onOpenGroup={setSelectedGroupID}/>
       ))}  
     </div>
+      )}
+      
+      </>
     )}
     
 
