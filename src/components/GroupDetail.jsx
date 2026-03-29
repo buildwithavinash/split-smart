@@ -34,6 +34,7 @@ const GroupDetail = ( {group, onAddExpense} ) => {
             {group.members.join(", ")}
         </p>
 
+{/* expense input */}
         <div>
             <form className="flex flex-col gap-2" onSubmit={(e)=>e.preventDefault()}>
                 <input type="number" placeholder="Amount" value={amount} onChange={(e)=>setAmount(e.target.value)} className="border border-indigo-400"/>
@@ -49,6 +50,41 @@ const GroupDetail = ( {group, onAddExpense} ) => {
                 <button type="submit" className="bg-indigo-500 rounded-xl px-4 py-2 font-semibold" onClick={handleAddClick}>Add Expense</button>
             </form>
         </div>
+
+
+        {/* show expenses */}
+        {group.expenses && group.expenses.length > 0 ? (
+            <div className="mt-3 space-y-3">
+                {[...group.expenses].reverse().map((exp)=>(
+                    <div key={exp.id}>
+                        <p>
+                            For: {exp.description}
+                        </p>
+
+                        <p>
+                            Amount: {exp.amount.toLocaleString("en-IN")}
+                        </p>
+
+                        <p>
+                            Paid By: {exp.paidBy}
+                        </p>
+
+                        <p>
+                            Split Between: {exp.splitBetween.length} people
+                        </p>
+                    </div>
+                ))}
+            </div>
+        ) : (
+            <p>
+                No expenses yet.
+            </p>
+        )}
+        
+            
+        
+
+
     </div>
   )
 }
