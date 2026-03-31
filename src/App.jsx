@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import GroupCard from "./components/GroupCard";
 import GroupDetail from "./components/GroupDetail";
 import GroupInputForm from "./components/GroupInputForm";
+import CreateGroupBtn from "./components/CreateGroupBtn";
 
 const App = () => {
   const [groups, setGroups] = useState(() => {
@@ -69,12 +70,10 @@ const App = () => {
 
   // remove member on form input
   const removeMember = (id) => {
-    const updatedMembers = members.filter((mem, i)=>(
-      i !== id
-    ))
+    const updatedMembers = members.filter((mem, i) => i !== id);
 
-    setMembers(updatedMembers)
-  }
+    setMembers(updatedMembers);
+  };
 
   // remove/delete group
   const onRemoveGroup = (groupId) => {
@@ -122,17 +121,26 @@ const App = () => {
 
   // main return
   return (
-    <div className="min-h-screen bg-slate-100 w-full text-slate-900 p-4">
+    <div className={`${isFormOpen ? "overflow-hidden h-screen" : "scr"} relative min-h-screen bg-slate-100 w-full text-slate-900 p-4`}>
       <h1 className="font-bold text-3xl text-slate-900 text-center">
         Split<span className="text-green-500 ">Smart</span>
       </h1>
 
-
       {/* group input form */}
-{isFormOpen && (
-  <GroupInputForm groupName={groupName} setGroupName={setGroupName} memberInput={memberInput} setMemberInput={setMemberInput} addMembers={addMembers} members={members} removeMember={removeMember} createGroup={createGroup} isFormOpen={isFormOpen} setIsFormOpen={setIsFormOpen}/>
-)}
-      
+      {isFormOpen && (
+        <GroupInputForm
+          groupName={groupName}
+          setGroupName={setGroupName}
+          memberInput={memberInput}
+          setMemberInput={setMemberInput}
+          addMembers={addMembers}
+          members={members}
+          removeMember={removeMember}
+          createGroup={createGroup}
+          isFormOpen={isFormOpen}
+          setIsFormOpen={setIsFormOpen}
+        />
+      )}
 
       {/* groups rendering */}
 
@@ -149,11 +157,15 @@ const App = () => {
           {groups.length === 0 ? (
             <div className="text-center h-[80vh] flex flex-col justify-center items-center">
               <div className="flex justify-center mt-8">
-  {!isFormOpen && (
-    <button onClick={()=>setIsFormOpen(true)} className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg font-semibold transition-all cursor-pointer border border-slate-500">Create Group</button>
-  )}
-  
-</div>
+                {!isFormOpen && (
+                  <button
+                    onClick={() => setIsFormOpen(true)}
+                    className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg font-semibold transition-all cursor-pointer border border-slate-500"
+                  >
+                    Create Group
+                  </button>
+                )}
+              </div>
               <p className="mt-6 text-gray-400 text-center">
                 No groups yet. Create your first group!
               </p>
@@ -174,6 +186,15 @@ const App = () => {
           )}
         </>
       )}
+
+{groups.length > 0 && (
+  <div>
+  <CreateGroupBtn setIsFormOpen={setIsFormOpen}/>
+</div>
+)}
+
+
+      {/* main end */}
     </div>
   );
 };

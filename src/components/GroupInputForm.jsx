@@ -7,7 +7,7 @@ const GroupInputForm = ( {groupName, setGroupName, memberInput, setMemberInput, 
         setIsFormOpen(false);
     }
   return (
-    <div className="p-2 absolute inset-0 h-screen w-full backdrop-blur-sm flex flex-col justify-center items-center">
+    <div className="p-2 absolute inset-0 h-screen w-full backdrop-blur-sm flex flex-col justify-center items-center z-10">
         
         <form
           onSubmit={(e) => {
