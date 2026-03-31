@@ -1,6 +1,6 @@
 const Header = ({theme, setTheme}) => {
   return (
-    <div>
+    <div className="">
       <div className="text-center">
         <h1 className="font-bold text-3xl text-slate-900 dark:text-slate-100 text-center">
           Split<span className="text-green-500 ">Smart</span>

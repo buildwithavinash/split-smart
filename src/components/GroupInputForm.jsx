@@ -1,9 +1,16 @@
 
-const GroupInputForm = ( {groupName, setGroupName, memberInput, setMemberInput, addMembers, members, removeMember, createGroup, isFormOpen, setIsFormOpen} ) => {
+const GroupInputForm = ( {groupName, setGroupName, memberInput, setMemberInput, addMembers, members, setMembers,removeMember, createGroup, isFormOpen, setIsFormOpen} ) => {
 
     const handleClick = () => {
         createGroup();
         setIsFormOpen(false);
+    }
+
+    const handleCancel = () => {
+        setIsFormOpen(false);
+        setGroupName("");
+        setMemberInput("")
+        setMembers([])
     }
   return (
     <div className="p-2 absolute inset-0 h-screen w-full backdrop-blur-xl flex flex-col justify-center items-center z-10">
@@ -12,7 +19,7 @@ const GroupInputForm = ( {groupName, setGroupName, memberInput, setMemberInput, 
           onSubmit={(e) => {
             e.preventDefault();
           }}
-          className="flex flex-col justify-center gap-4 border bg-slate-200 dark:bg-slate-900 border-slate-400 dark:border-slate-700 p-2 rounded-xl"
+          className="flex flex-col justify-center gap-4 border bg-slate-200 dark:bg-slate-900 border-slate-400 dark:border-slate-700 p-2 rounded-xl md:w-[60%]"
         >
           <div className="mt-4">
             <input
@@ -46,9 +53,9 @@ const GroupInputForm = ( {groupName, setGroupName, memberInput, setMemberInput, 
             </button>
             </div>
             {members.length > 0 && (
-              <div className="flex gap-1">
+              <div className="flex gap-1 flex-wrap">
               {members.map((m, id)=>(
-                <div key={id} className="bg-slate-200 text-slate-900 flex items-center px-3 py-1 rounded-xl justify-center gap-2">
+                <div key={id} className="bg-slate-300 text-slate-900 flex items-center px-3 py-1 rounded-xl justify-center gap-2">
                   <span>{m}</span>
                   <button onClick={(e) => {
                 e.stopPropagation();
@@ -69,7 +76,7 @@ const GroupInputForm = ( {groupName, setGroupName, memberInput, setMemberInput, 
             Create
           </button>
           {isFormOpen && (
-    <button onClick={()=>setIsFormOpen(false)} className="bg-rose-600 hover:bg-rose-700 text-white px-4 py-2 rounded-lg font-semibold transition-all cursor-pointer border border-slate-500 -mt-1">Cancel</button>
+    <button onClick={handleCancel} className="bg-rose-600 hover:bg-rose-700 text-white px-4 py-2 rounded-lg font-semibold transition-all cursor-pointer border border-slate-500 -mt-1">Cancel</button>
   )}
         </form>
       </div>

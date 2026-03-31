@@ -18,9 +18,9 @@ const App = () => {
   const [members, setMembers] = useState([]);
   const [selectedGroupID, setSelectedGroupID] = useState(null);
   const [isFormOpen, setIsFormOpen] = useState(false);
-  const [theme, setTheme] = useState(()=>{
-    return localStorage.getItem("theme") || "light"
-  })
+  const [theme, setTheme] = useState(() => {
+    return localStorage.getItem("theme") || "light";
+  });
 
   // local storage
   useEffect(() => {
@@ -28,15 +28,14 @@ const App = () => {
   }, [groups]);
 
   // dark mode
-  useEffect(()=>{
-    if(theme === "dark"){
+  useEffect(() => {
+    if (theme === "dark") {
       document.documentElement.classList.add("dark");
-    }else {
+    } else {
       document.documentElement.classList.remove("dark");
     }
-    localStorage.setItem("theme", theme)
-  }, [theme])
-
+    localStorage.setItem("theme", theme);
+  }, [theme]);
 
   // create group
   const createGroup = () => {
@@ -136,8 +135,9 @@ const App = () => {
 
   // main return
   return (
-    <div className={`${isFormOpen ? "overflow-hidden h-screen" : "scr"} relative min-h-screen bg-slate-100 dark:bg-slate-900 w-full text-slate-900 dark:text-slate-100 p-4`}>
-
+    <div
+      className={`${isFormOpen ? "overflow-hidden h-screen" : "scr"} relative min-h-screen bg-slate-100 dark:bg-slate-900 text-slate-900 dark:text-slate-100 p-4 max-w-xl mx-auto border border-slate-300 rounded-md shadow-md`}
+    >
       <Header theme={theme} setTheme={setTheme} />
 
       {/* group input form */}
@@ -153,6 +153,7 @@ const App = () => {
           createGroup={createGroup}
           isFormOpen={isFormOpen}
           setIsFormOpen={setIsFormOpen}
+          setMembers={setMembers}
         />
       )}
 
@@ -185,7 +186,7 @@ const App = () => {
               </p>
             </div>
           ) : (
-            <div className="cards__container grid grid-cols-1 gap-4 mt-4">
+            <div className="cards__container grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
               {groups.map((group) => (
                 // Group Card Component
                 <GroupCard
@@ -201,12 +202,11 @@ const App = () => {
         </>
       )}
 
-{groups.length > 0 && (
-  <div className="shadow">
-  <CreateGroupBtn setIsFormOpen={setIsFormOpen}/>
-</div>
-)}
-
+      {groups.length > 0 && (
+        
+          <CreateGroupBtn setIsFormOpen={setIsFormOpen} />
+        
+      )}
 
       {/* main end */}
     </div>
