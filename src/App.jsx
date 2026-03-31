@@ -65,6 +65,15 @@ const App = () => {
     setGroups(updatedGroup);
   };
 
+  // remove member on form input
+  const removeMember = (id) => {
+    const updatedMembers = members.filter((mem, i)=>(
+      i !== id
+    ))
+
+    setMembers(updatedMembers)
+  }
+
   // remove/delete group
   const onRemoveGroup = (groupId) => {
     const updatedGroup = groups.filter((group) => {
@@ -137,7 +146,9 @@ const App = () => {
             />
           </div>
 
-          <div className="flex gap-2 justify-between items-center">
+          <div className="flex flex-col gap-2 justify-between">
+            <div className="flex gap-2 justify-between items-center">
+
             
             <input
             placeholder="Member name"
@@ -153,7 +164,21 @@ const App = () => {
             >
               Add
             </button>
-
+            </div>
+            {members.length > 0 && (
+              <div className="flex gap-1">
+              {members.map((m, id)=>(
+                <div key={id} className="bg-slate-200 text-slate-900 flex items-center px-3 py-1 rounded-xl justify-center gap-2">
+                  <span>{m}</span>
+                  <button onClick={(e) => {
+                e.stopPropagation();
+                removeMember(id);
+              }}>X</button>
+                </div>
+              ))}
+            </div>
+            )}
+            
           </div>
 
           <button
@@ -179,8 +204,8 @@ const App = () => {
       ) : (
         <>
           {groups.length === 0 ? (
-            <div>
-              <p className="mt-6 text-gray-400">
+            <div className="text-center">
+              <p className="mt-6 text-gray-400 text-center">
                 No groups yet. Create your first group!
               </p>
             </div>
