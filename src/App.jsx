@@ -188,7 +188,7 @@ const App = () => {
       )}
 
 {groups.length > 0 && (
-  <div>
+  <div className="shadow">
   <CreateGroupBtn setIsFormOpen={setIsFormOpen}/>
 </div>
 )}

@@ -59,7 +59,7 @@ const GroupDetail = ({ group, onAddExpense, onDeleteExpense, onBackClick }) => {
   };
 
   return (
-    <div className="border border-slate-300 rounded-xl p-2 relative">
+    <div className="border border-slate-300 shadow rounded-xl p-2 relative mt-4">
       <button
         className="bg-green-300 hover:bg-green-500 transition-all duration-200 font-medium absolute px-3 py-1 rounded-md cursor-pointer top-2 right-2"
         onClick={() => onBackClick(null)}
@@ -76,7 +76,7 @@ const GroupDetail = ({ group, onAddExpense, onDeleteExpense, onBackClick }) => {
       {/* expense input */}
       <div className="mt-4">
         <form
-          className="flex flex-col gap-2"
+          className="flex flex-col gap-4"
           onSubmit={(e) => e.preventDefault()}
         >
           <input
@@ -126,16 +126,16 @@ const GroupDetail = ({ group, onAddExpense, onDeleteExpense, onBackClick }) => {
 
       {/* details */}
 
-      <div className="border border-slate-300 mt-6 p-1 rounded-md">
+      <div className="border border-slate-200 mt-6 p-1 rounded-md">
         <div className="text-center mt-2">
-          <p>Total Expense: {total}</p>
+          <p>Total Expense: ₹{total}</p>
         </div>
 
         {/* show expenses */}
         {group.expenses && group.expenses.length > 0 ? (
-          <div className="mt-3 space-y-3 border border-green-400 p-1 rounded-md">
+          <div className="mt-3 space-y-3 p-1">
             {[...group.expenses].reverse().map((exp) => (
-              <div key={exp.id} className="relative">
+              <div key={exp.id} className="relative border border-slate-300 p-2 rounded-md">
                 <button
                   className="text-xs px-2 py-1 bg-red-300 rounded-md absolute cursor-pointer hover:bg-red-500 transition-all duration-200 top-1 right-1 active:scale-95"
                   onClick={() => onDeleteExpense(group.id, exp.id)}
@@ -144,7 +144,7 @@ const GroupDetail = ({ group, onAddExpense, onDeleteExpense, onBackClick }) => {
                 </button>
                 <p className="text-slate-800"><span className="font-medium text-slate-900">For: </span>{exp.description}</p>
 
-                <p className="text-slate-800"><span className="font-medium text-slate-900">Amount: </span>{exp.amount.toLocaleString("en-IN")}</p>
+                <p className="text-slate-800"><span className="font-medium text-slate-900">Amount: </span>₹{exp.amount.toLocaleString("en-IN")}</p>
 
                 <p className="text-slate-800"><span className="font-medium text-slate-900">Paid By: </span>{exp.paidBy}</p>
 
@@ -157,7 +157,7 @@ const GroupDetail = ({ group, onAddExpense, onDeleteExpense, onBackClick }) => {
         )}
 
         {/* show settlements */}
-        <div className="border border-slate-300 rounded-md p-0.5 mt-2">
+        <div className="border border-slate-200 rounded-md p-2 mt-2 bg-slate-200">
           <h3 className="text-center font-semibold mb-2">Settlement Summary</h3>
 
           {settlements.length > 0 ? (
@@ -171,7 +171,7 @@ const GroupDetail = ({ group, onAddExpense, onDeleteExpense, onBackClick }) => {
                 </div>
               ))}
 
-              <button onClick={handleShare} className="block border border-slate-400 bg-green-500 text-slate-100 rounded-md px-3 py-1 mx-auto my-4 cursor-pointer hover:bg-green-700 transition-all duration-200">Share on Whatsapp</button>
+              <button onClick={handleShare} className="block border border-slate-400 bg-green-500 text-slate-100 rounded-md px-3 py-1 mx-auto my-4 cursor-pointer hover:bg-green-700 transition-all duration-200">Share on Whatsapp <i class="ri-whatsapp-fill"></i></button>
             </div>
           ) : (
             <p className="text-slate-600 text-center">No settlements needed</p>
