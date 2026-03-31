@@ -1,4 +1,3 @@
-import React from 'react'
 
 const GroupInputForm = ( {groupName, setGroupName, memberInput, setMemberInput, addMembers, members, removeMember, createGroup, isFormOpen, setIsFormOpen} ) => {
 
@@ -7,13 +6,13 @@ const GroupInputForm = ( {groupName, setGroupName, memberInput, setMemberInput, 
         setIsFormOpen(false);
     }
   return (
-    <div className="p-2 absolute inset-0 h-screen w-full backdrop-blur-sm flex flex-col justify-center items-center z-10">
+    <div className="p-2 absolute inset-0 h-screen w-full backdrop-blur-xl flex flex-col justify-center items-center z-10">
         
         <form
           onSubmit={(e) => {
             e.preventDefault();
           }}
-          className="flex flex-col justify-center gap-4"
+          className="flex flex-col justify-center gap-4 border bg-slate-200 dark:bg-slate-900 border-slate-400 dark:border-slate-700 p-2 rounded-xl"
         >
           <div className="mt-4">
             <input
@@ -23,7 +22,7 @@ const GroupInputForm = ( {groupName, setGroupName, memberInput, setMemberInput, 
               onChange={(e) => setGroupName(e.target.value)}
               name="groupName"
               id="groupName"
-              className="w-full border border-slate-300 rounded-md px-3 py-1 focus:outline-none focus:border-green-500 transition-all duration-200"
+              className="w-full border border-slate-300 dark:border-slate-700 rounded-md px-3 py-1 focus:outline-none focus:border-green-500 bg-slate-100 dark:bg-slate-800 transition-all duration-200"
             />
           </div>
 
@@ -36,11 +35,11 @@ const GroupInputForm = ( {groupName, setGroupName, memberInput, setMemberInput, 
               type="text"
               value={memberInput}
               onChange={(e) => setMemberInput(e.target.value)}
-              className="w-full border border-slate-300 rounded-md px-3 py-1 focus:outline-none focus:border-green-500 transition-all duration-200"
+              className="w-full border border-slate-300 dark:border-slate-700 rounded-md px-3 py-1 focus:outline-none focus:border-green-500 bg-slate-100 dark:bg-slate-800 transition-all duration-200"
             />
             <button
               type="button"
-              className="bg-slate-200 hover:bg-slate-300 text-slate-800 px-3 py-1 rounded-lg transition-all cursor-pointer self-center"
+              className="bg-slate-100 hover:bg-slate-300 text-slate-800 px-3 py-1 rounded-lg transition-all cursor-pointer self-center"
               onClick={addMembers}
             >
               Add
@@ -54,7 +53,7 @@ const GroupInputForm = ( {groupName, setGroupName, memberInput, setMemberInput, 
                   <button onClick={(e) => {
                 e.stopPropagation();
                 removeMember(id);
-              }}>X</button>
+              }} className="cursor-pointer"><i class="ri-close-large-fill"></i></button>
                 </div>
               ))}
             </div>
@@ -70,7 +69,7 @@ const GroupInputForm = ( {groupName, setGroupName, memberInput, setMemberInput, 
             Create
           </button>
           {isFormOpen && (
-    <button onClick={()=>setIsFormOpen(false)} className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg font-semibold transition-all cursor-pointer border border-slate-500">Cancel</button>
+    <button onClick={()=>setIsFormOpen(false)} className="bg-rose-600 hover:bg-rose-700 text-white px-4 py-2 rounded-lg font-semibold transition-all cursor-pointer border border-slate-500 -mt-1">Cancel</button>
   )}
         </form>
       </div>

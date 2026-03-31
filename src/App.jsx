@@ -3,6 +3,7 @@ import GroupCard from "./components/GroupCard";
 import GroupDetail from "./components/GroupDetail";
 import GroupInputForm from "./components/GroupInputForm";
 import CreateGroupBtn from "./components/CreateGroupBtn";
+import Header from "./components/Header";
 
 const App = () => {
   const [groups, setGroups] = useState(() => {
@@ -17,11 +18,25 @@ const App = () => {
   const [members, setMembers] = useState([]);
   const [selectedGroupID, setSelectedGroupID] = useState(null);
   const [isFormOpen, setIsFormOpen] = useState(false);
+  const [theme, setTheme] = useState(()=>{
+    return localStorage.getItem("theme") || "light"
+  })
 
   // local storage
   useEffect(() => {
     localStorage.setItem("groups", JSON.stringify(groups));
   }, [groups]);
+
+  // dark mode
+  useEffect(()=>{
+    if(theme === "dark"){
+      document.documentElement.classList.add("dark");
+    }else {
+      document.documentElement.classList.remove("dark");
+    }
+    localStorage.setItem("theme", theme)
+  }, [theme])
+
 
   // create group
   const createGroup = () => {
@@ -121,10 +136,9 @@ const App = () => {
 
   // main return
   return (
-    <div className={`${isFormOpen ? "overflow-hidden h-screen" : "scr"} relative min-h-screen bg-slate-100 w-full text-slate-900 p-4`}>
-      <h1 className="font-bold text-3xl text-slate-900 text-center">
-        Split<span className="text-green-500 ">Smart</span>
-      </h1>
+    <div className={`${isFormOpen ? "overflow-hidden h-screen" : "scr"} relative min-h-screen bg-slate-100 dark:bg-slate-900 w-full text-slate-900 dark:text-slate-100 p-4`}>
+
+      <Header theme={theme} setTheme={setTheme} />
 
       {/* group input form */}
       {isFormOpen && (

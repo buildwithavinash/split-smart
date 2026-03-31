@@ -1,13 +1,12 @@
 
-
 const GroupCard = ({ group, onMemberRemove, onRemoveGroup, onOpenGroup }) => {
   return (
     <div
       onClick={() => onOpenGroup(group.id)}
-      className="border border-slate-400 rounded-xl p-2 relative cursor-pointer"
+      className="border border-slate-300 dark:border-slate-700 rounded-xl p-2 relative cursor-pointer"
     >
       <button
-        className="text-sm px-2 py-0.5 bg-rose-400 rounded-md absolute cursor-pointer hover:bg-rose-500 transition-all duration-200 top-2 right-2 active:scale-95"
+        className="text-sm px-2 py-0.5 bg-rose-400 dark:bg-rose-500 rounded-md absolute cursor-pointer hover:bg-rose-500 dark:hover:bg-rose-600 transition-all duration-200 top-2 right-2 active:scale-95"
         onClick={(e) => {
           e.stopPropagation;
           onRemoveGroup(group.id);
@@ -15,8 +14,8 @@ const GroupCard = ({ group, onMemberRemove, onRemoveGroup, onOpenGroup }) => {
       >
         <i class="ri-delete-bin-6-line"></i>
       </button>
-      <h2 className="text-2xl text-slate-900 font-semibold">{group.name}</h2>
-      <p className="text-slate-800 text-sm">{group.members.length} members</p>
+      <h2 className="text-2xl text-slate-900 dark:text-slate-100 font-semibold">{group.name}</h2>
+      <p className="text-slate-800 dark:text-slate-600 text-sm">{group.members.length} members</p>
 
       {/* members */}
       <div className="flex gap-2 flex-wrap mt-4">

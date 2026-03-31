@@ -59,17 +59,17 @@ const GroupDetail = ({ group, onAddExpense, onDeleteExpense, onBackClick }) => {
   };
 
   return (
-    <div className="border border-slate-300 shadow rounded-xl p-2 relative mt-4">
+    <div className="border border-slate-300 dark:border-slate-800 shadow rounded-xl p-2 relative mt-4">
       <button
-        className="bg-green-300 hover:bg-green-500 transition-all duration-200 font-medium absolute px-3 py-1 rounded-md cursor-pointer top-2 right-2"
+        className="bg-green-300 hover:bg-green-500 dark:text-slate-800 transition-all duration-200 font-medium absolute px-3 py-1 rounded-md cursor-pointer top-2 right-2"
         onClick={() => onBackClick(null)}
       >
         <i class="ri-arrow-go-back-line"></i>
       </button>
-      <h2 className="text-2xl text-slate-900 font-bold">{group.name}</h2>
+      <h2 className="text-2xl text-slate-900 dark:text-slate-100 font-bold">{group.name}</h2>
 
-      <p className="text-slate-800">
-        <span className="text-slate-900">Members: </span>
+      <p className="text-slate-800 dark:text-slate-500">
+        <span className="text-slate-900 dark:text-slate-400">Members: </span>
         {group.members.join(", ")}
       </p>
 
@@ -84,11 +84,11 @@ const GroupDetail = ({ group, onAddExpense, onDeleteExpense, onBackClick }) => {
             placeholder="Amount"
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
-            className="w-full border border-slate-300 rounded-md px-3 py-1 focus:outline-none focus:border-green-500 transition-all duration-200"
+            className="w-full border border-slate-300 dark:border-slate-700 rounded-md px-3 py-1 focus:outline-none focus:border-green-500 transition-all duration-200"
           />
 
           <div className="flex gap-2 items-center">
-            <label className="flex-1 text-nowrap text-slate-900 font-medium">
+            <label className="flex-1 text-nowrap text-slate-900 dark:text-slate-300 font-medium">
               Paid By:{" "}
             </label>
             <select
@@ -96,7 +96,7 @@ const GroupDetail = ({ group, onAddExpense, onDeleteExpense, onBackClick }) => {
               id=""
               value={paidBy}
               onChange={(e) => setPaidBy(e.target.value)}
-              className="w-full border border-slate-300 rounded-md px-3 py-1 focus:outline-none focus:border-green-500 transition-all duration-200"
+              className="w-full border border-slate-300 dark:border-slate-700 dark:bg-slate-800 rounded-md px-3 py-1 focus:outline-none focus:border-green-500 transition-all duration-200"
             >
               {group.members.map((mem) => (
                 <option key={mem} className="bg-gray-800 text-white">
@@ -111,12 +111,12 @@ const GroupDetail = ({ group, onAddExpense, onDeleteExpense, onBackClick }) => {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             placeholder="Description"
-            className="w-full border border-slate-300 rounded-md px-3 py-1 focus:outline-none focus:border-green-500 transition-all duration-200"
+            className="w-full border border-slate-300 dark:border-slate-700 rounded-md px-3 py-1 focus:outline-none focus:border-green-500 transition-all duration-200"
           />
 
           <button
             type="submit"
-            className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg font-semibold transition-all cursor-pointer border border-slate-500"
+            className="bg-green-500 hover:bg-green-600 text-slate-100 px-4 py-2 rounded-lg font-semibold transition-all cursor-pointer border border-slate-500"
             onClick={handleAddClick}
           >
             Add Expense
@@ -126,7 +126,7 @@ const GroupDetail = ({ group, onAddExpense, onDeleteExpense, onBackClick }) => {
 
       {/* details */}
 
-      <div className="border border-slate-200 mt-6 p-1 rounded-md">
+      <div className="border border-slate-200 dark:border-slate-800 mt-6 p-1 rounded-md">
         <div className="text-center mt-2">
           <p>Total Expense: ₹{total}</p>
         </div>
@@ -135,29 +135,29 @@ const GroupDetail = ({ group, onAddExpense, onDeleteExpense, onBackClick }) => {
         {group.expenses && group.expenses.length > 0 ? (
           <div className="mt-3 space-y-3 p-1">
             {[...group.expenses].reverse().map((exp) => (
-              <div key={exp.id} className="relative border border-slate-300 p-2 rounded-md">
+              <div key={exp.id} className="relative border border-slate-300 dark:border-slate-700 p-2 rounded-md">
                 <button
-                  className="text-xs px-2 py-1 bg-red-300 rounded-md absolute cursor-pointer hover:bg-red-500 transition-all duration-200 top-1 right-1 active:scale-95"
+                  className="text-xs px-2 py-1 bg-rose-400 rounded-md absolute cursor-pointer hover:bg-rose-500 transition-all duration-200 top-1 right-1 active:scale-95"
                   onClick={() => onDeleteExpense(group.id, exp.id)}
                 >
                   <i class="ri-delete-bin-6-line"></i>
                 </button>
-                <p className="text-slate-800"><span className="font-medium text-slate-900">For: </span>{exp.description}</p>
+                <p className="text-slate-800 dark:text-slate-200"><span className="font-medium text-slate-900 dark:text-slate-100">For: </span>{exp.description}</p>
 
-                <p className="text-slate-800"><span className="font-medium text-slate-900">Amount: </span>₹{exp.amount.toLocaleString("en-IN")}</p>
+                <p className="text-slate-800 dark:text-slate-200"><span className="font-medium text-slate-900 dark:text-slate-100">Amount: </span>₹{exp.amount.toLocaleString("en-IN")}</p>
 
-                <p className="text-slate-800"><span className="font-medium text-slate-900">Paid By: </span>{exp.paidBy}</p>
+                <p className="text-slate-800 dark:text-slate-200"><span className="font-medium text-slate-900 dark:text-slate-100">Paid By: </span>{exp.paidBy}</p>
 
-                <p className="text-slate-800"><span className="font-medium text-slate-900">Split Between: </span>{exp.splitBetween.length} people</p>
+                <p className="text-slate-800 dark:text-slate-200"><span className="font-medium text-slate-900 dark:text-slate-100">Split Between: </span>{exp.splitBetween.length} people</p>
               </div>
             ))}
           </div>
         ) : (
-          <p className="text-center text-slate-600">No expenses yet.</p>
+          <p className="text-center text-slate-600 dark:text-slate-400">No expenses yet.</p>
         )}
 
         {/* show settlements */}
-        <div className="border border-slate-200 rounded-md p-2 mt-2 bg-slate-200">
+        <div className="border border-slate-200 dark:border-slate-700 rounded-md p-2 mt-2 bg-slate-200 dark:bg-slate-800">
           <h3 className="text-center font-semibold mb-2">Settlement Summary</h3>
 
           {settlements.length > 0 ? (
