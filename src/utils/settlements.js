@@ -44,7 +44,7 @@ const calculateSettlements = (groups) => {
     settlements.push({
       from: debtors[i].name,
       to: creditors[j].name,
-      amount: amt,
+      amount: Math.round(amt * 100) / 100,
     });
 
     debtors[i].amount -= amt;
@@ -54,7 +54,7 @@ const calculateSettlements = (groups) => {
     if (creditors[j].amount === 0) j++;
   }
 
-  console.log(settlements);
+  
   return settlements;
 };
 

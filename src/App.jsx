@@ -4,6 +4,7 @@ import GroupDetail from "./components/GroupDetail";
 import GroupInputForm from "./components/GroupInputForm";
 import CreateGroupBtn from "./components/CreateGroupBtn";
 import Header from "./components/Header";
+import textFormatter from "./utils/textFormat";
 
 const App = () => {
   const [groups, setGroups] = useState(() => {
@@ -21,6 +22,7 @@ const App = () => {
   const [theme, setTheme] = useState(() => {
     return localStorage.getItem("theme") || "light";
   });
+  
 
   // local storage
   useEffect(() => {
@@ -39,14 +41,10 @@ const App = () => {
 
   // create group
   const createGroup = () => {
-    if (groupName.trim() === "" || members.length < 2) {
-      alert("Please enter a group name and at least 2 members");
-      return;
-    }
 
     const newGroup = {
       id: crypto.randomUUID(),
-      name: groupName.trim(),
+      name: textFormatter(groupName.trim()),
       members: members,
       expenses: [],
     };
@@ -62,7 +60,7 @@ const App = () => {
     if (members.includes(memberInput.trim())) return;
 
     if (memberInput.trim() === "") return;
-    setMembers((prev) => [...prev, memberInput]);
+    setMembers((prev) => [...prev, textFormatter(memberInput)]);
     setMemberInput("");
   };
 

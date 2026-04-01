@@ -8,7 +8,7 @@ const GroupCard = ({ group, onMemberRemove, onRemoveGroup, onOpenGroup }) => {
       <button
         className="text-sm px-2 py-0.5 bg-rose-400 dark:bg-rose-500 rounded-md absolute cursor-pointer hover:bg-rose-500 dark:hover:bg-rose-600 transition-all duration-200 top-2 right-2 active:scale-95"
         onClick={(e) => {
-          e.stopPropagation;
+          e.stopPropagation();
           onRemoveGroup(group.id);
         }}
       >

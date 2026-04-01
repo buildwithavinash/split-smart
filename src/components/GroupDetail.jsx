@@ -7,8 +7,7 @@ const GroupDetail = ({ group, onAddExpense, onDeleteExpense, onBackClick }) => {
   const [description, setDescription] = useState("");
 
   const handleAddClick = () => {
-    if (!amount || !description) return;
-    if (!amount || amount <= 0) return;
+    if (!amount || !description || Number(amount) <= 0) return;
 
     const newExpense = {
       id: crypto.randomUUID(),
@@ -23,7 +22,7 @@ const GroupDetail = ({ group, onAddExpense, onDeleteExpense, onBackClick }) => {
 
     setAmount("");
     setDescription("");
-    console.log(newExpense);
+    
   };
 
   const total = group.expenses
@@ -33,7 +32,7 @@ const GroupDetail = ({ group, onAddExpense, onDeleteExpense, onBackClick }) => {
     : 0;
 
   const settlements = calculateSettlements(group) || [];
-  console.log(settlements);
+  
 
   // generate message
 
