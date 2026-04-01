@@ -61,8 +61,8 @@ Example: Alice paid ₹300, Bob paid ₹0, Carol paid ₹0 (split equally)
 
 ```bash
 # Clone the repo
-git clone https://github.com/your-username/splitsmart.git
-cd splitsmart
+git clone https://github.com/buildwithavinash/split-smart.git
+cd split-smart
 
 # Install dependencies
 npm install
@@ -71,7 +71,7 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:5173](http://localhost:5173) in your browser.
+Open [https://split-smart-sigma.vercel.app/] in your browser.
 
 ### Build for Production
 
@@ -111,7 +111,7 @@ src/
 
 ## Screenshots
 
-> _Add screenshots here after deployment_
+
 
 ---
 

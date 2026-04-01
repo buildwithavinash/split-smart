@@ -134,7 +134,7 @@ const App = () => {
   // main return
   return (
     <div
-      className={`${isFormOpen ? "overflow-hidden h-screen" : "scr"} relative min-h-screen bg-slate-100 dark:bg-slate-900 text-slate-900 dark:text-slate-100 p-4 max-w-xl mx-auto border border-slate-300 rounded-md shadow-md`}
+      className={`${isFormOpen ? "overflow-hidden h-screen" : "scr"} relative min-h-screen bg-slate-100 dark:bg-slate-900 text-slate-900 dark:text-slate-100 p-4 max-w-xl mx-auto border border-slate-300 dark:border-slate-800 rounded-md shadow-md`}
     >
       <Header theme={theme} setTheme={setTheme} />
 
