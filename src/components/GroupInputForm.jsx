@@ -1,4 +1,5 @@
 import { useState } from "react";
+
 const GroupInputForm = ({
   groupName,
   setGroupName,
@@ -34,6 +35,15 @@ const GroupInputForm = ({
     setMemberInput("");
     setMembers([]);
   };
+
+  // allow pressing Enter to add a member
+  const handleMemberKeyDown = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      addMembers();
+    }
+  };
+
   return (
     <div className="p-2 absolute inset-0 h-screen w-full backdrop-blur-xl flex flex-col justify-center items-center z-10">
       <form
@@ -47,7 +57,7 @@ const GroupInputForm = ({
             placeholder="Group name"
             type="text"
             value={groupName}
-            onChange={(e) => {setGroupName(e.target.value); setErrorMsg("");}}
+            onChange={(e) => { setGroupName(e.target.value); setErrorMsg(""); }}
             name="groupName"
             id="groupName"
             className="w-full border border-slate-300 dark:border-slate-700 rounded-md px-3 py-1 focus:outline-none focus:border-green-500 bg-slate-100 dark:bg-slate-800 transition-all duration-200"
@@ -60,7 +70,8 @@ const GroupInputForm = ({
               placeholder="Member name"
               type="text"
               value={memberInput}
-              onChange={(e) => {setMemberInput(e.target.value); setErrorMsg("");}}
+              onChange={(e) => { setMemberInput(e.target.value); setErrorMsg(""); }}
+              onKeyDown={handleMemberKeyDown}
               className="w-full border border-slate-300 dark:border-slate-700 rounded-md px-3 py-1 focus:outline-none focus:border-green-500 bg-slate-100 dark:bg-slate-800 transition-all duration-200"
             />
             <button
@@ -86,7 +97,7 @@ const GroupInputForm = ({
                     }}
                     className="cursor-pointer"
                   >
-                    <i class="ri-close-large-fill"></i>
+                    <i className="ri-close-large-fill"></i>
                   </button>
                 </div>
               ))}

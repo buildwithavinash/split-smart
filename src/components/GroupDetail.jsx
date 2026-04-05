@@ -22,7 +22,12 @@ const GroupDetail = ({ group, onAddExpense, onDeleteExpense, onBackClick }) => {
 
     setAmount("");
     setDescription("");
-    
+  };
+
+  const handleDeleteExpense = (groupId, expId) => {
+    if (window.confirm("Delete this expense? This cannot be undone.")) {
+      onDeleteExpense(groupId, expId);
+    }
   };
 
   const total = group.expenses
@@ -32,10 +37,8 @@ const GroupDetail = ({ group, onAddExpense, onDeleteExpense, onBackClick }) => {
     : 0;
 
   const settlements = calculateSettlements(group) || [];
-  
 
   // generate message
-
   const generateMessage = () => {
     if (settlements.length === 0) return "No settlements needed";
 
@@ -49,12 +52,16 @@ const GroupDetail = ({ group, onAddExpense, onDeleteExpense, onBackClick }) => {
   };
 
   // handle whatsapp share
-
   const handleShare = () => {
     const message = generateMessage();
     const encoded = encodeURIComponent(message);
-
     window.open(`https://wa.me/?text=${encoded}`);
+  };
+
+  // format date helper
+  const formatDate = (isoString) => {
+    const date = new Date(isoString);
+    return date.toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" });
   };
 
   return (
@@ -63,7 +70,7 @@ const GroupDetail = ({ group, onAddExpense, onDeleteExpense, onBackClick }) => {
         className="bg-green-300 hover:bg-green-500 dark:text-slate-800 transition-all duration-200 font-medium absolute px-3 py-1 rounded-md cursor-pointer top-2 right-2"
         onClick={() => onBackClick(null)}
       >
-        <i class="ri-arrow-go-back-line"></i>
+        <i className="ri-arrow-go-back-line"></i>
       </button>
       <h2 className="text-2xl text-slate-900 dark:text-slate-100 font-bold">{group.name}</h2>
 
@@ -91,8 +98,6 @@ const GroupDetail = ({ group, onAddExpense, onDeleteExpense, onBackClick }) => {
               Paid By:{" "}
             </label>
             <select
-              name=""
-              id=""
               value={paidBy}
               onChange={(e) => setPaidBy(e.target.value)}
               className="w-full border border-slate-300 dark:border-slate-700 dark:bg-slate-800 rounded-md px-3 py-1 focus:outline-none focus:border-green-500 transition-all duration-200"
@@ -124,7 +129,6 @@ const GroupDetail = ({ group, onAddExpense, onDeleteExpense, onBackClick }) => {
       </div>
 
       {/* details */}
-
       <div className="border border-slate-200 dark:border-slate-800 mt-6 p-1 rounded-md">
         <div className="text-center mt-2">
           <p>Total Expense: ₹{total}</p>
@@ -137,17 +141,25 @@ const GroupDetail = ({ group, onAddExpense, onDeleteExpense, onBackClick }) => {
               <div key={exp.id} className="relative border border-slate-300 dark:border-slate-700 p-2 rounded-md">
                 <button
                   className="text-xs px-2 py-1 bg-rose-400 rounded-md absolute cursor-pointer hover:bg-rose-500 transition-all duration-200 top-1 right-1 active:scale-95"
-                  onClick={() => onDeleteExpense(group.id, exp.id)}
+                  onClick={() => handleDeleteExpense(group.id, exp.id)}
                 >
-                  <i class="ri-delete-bin-6-line"></i>
+                  <i className="ri-delete-bin-6-line"></i>
                 </button>
-                <p className="text-slate-800 dark:text-slate-200"><span className="font-medium text-slate-900 dark:text-slate-100">For: </span>{exp.description}</p>
-
-                <p className="text-slate-800 dark:text-slate-200"><span className="font-medium text-slate-900 dark:text-slate-100">Amount: </span>₹{exp.amount.toLocaleString("en-IN")}</p>
-
-                <p className="text-slate-800 dark:text-slate-200"><span className="font-medium text-slate-900 dark:text-slate-100">Paid By: </span>{exp.paidBy}</p>
-
-                <p className="text-slate-800 dark:text-slate-200"><span className="font-medium text-slate-900 dark:text-slate-100">Split Between: </span>{exp.splitBetween.length} people</p>
+                <p className="text-slate-800 dark:text-slate-200">
+                  <span className="font-medium text-slate-900 dark:text-slate-100">For: </span>{exp.description}
+                </p>
+                <p className="text-slate-800 dark:text-slate-200">
+                  <span className="font-medium text-slate-900 dark:text-slate-100">Amount: </span>₹{exp.amount.toLocaleString("en-IN")}
+                </p>
+                <p className="text-slate-800 dark:text-slate-200">
+                  <span className="font-medium text-slate-900 dark:text-slate-100">Paid By: </span>{exp.paidBy}
+                </p>
+                <p className="text-slate-800 dark:text-slate-200">
+                  <span className="font-medium text-slate-900 dark:text-slate-100">Split Between: </span>{exp.splitBetween.length} people
+                </p>
+                <p className="text-slate-500 dark:text-slate-500 text-xs mt-1">
+                  {formatDate(exp.date)}
+                </p>
               </div>
             ))}
           </div>
@@ -170,7 +182,12 @@ const GroupDetail = ({ group, onAddExpense, onDeleteExpense, onBackClick }) => {
                 </div>
               ))}
 
-              <button onClick={handleShare} className="block border border-slate-400 bg-green-500 text-slate-100 rounded-md px-3 py-1 mx-auto my-4 cursor-pointer hover:bg-green-700 transition-all duration-200">Share on Whatsapp <i class="ri-whatsapp-fill"></i></button>
+              <button
+                onClick={handleShare}
+                className="block border border-slate-400 bg-green-500 text-slate-100 rounded-md px-3 py-1 mx-auto my-4 cursor-pointer hover:bg-green-700 transition-all duration-200"
+              >
+                Share on Whatsapp <i className="ri-whatsapp-fill"></i>
+              </button>
             </div>
           ) : (
             <p className="text-slate-600 text-center">No settlements needed</p>

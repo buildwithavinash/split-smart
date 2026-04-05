@@ -13,9 +13,9 @@ const Header = ({theme, setTheme}) => {
       <div>
         <button onClick={()=>setTheme(theme === "light" ? "dark" : "light")} className="cursor-pointer absolute top-2 right-2 bg-slate-300 px-3 py-1 rounded-xl dark:bg-slate-700">
           {theme === "dark" ? (
-            <i class="ri-sun-fill"></i>
+            <i className="ri-sun-fill"></i>
           ) : (
-            <i class="ri-moon-fill"></i>
+            <i className="ri-moon-fill"></i>
           )}
         </button>
       </div>

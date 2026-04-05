@@ -1,13 +1,13 @@
-const calculateSettlements = (groups) => {
-  if (!groups.expenses || groups.expenses.length === 0) return;
+const calculateSettlements = (group) => {
+  if (!group.expenses || group.expenses.length === 0) return;
 
   const balances = {};
 
-  groups.members.forEach((member) => {
+  group.members.forEach((member) => {
     balances[member] = 0;
   });
 
-  groups.expenses.forEach((exp) => {
+  group.expenses.forEach((exp) => {
     const splitAmount = exp.amount / exp.splitBetween.length;
 
     exp.splitBetween.forEach((member) => {
